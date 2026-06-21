@@ -1,10 +1,8 @@
 # grok-goal-skill
 
-**Primary purpose:** Demonstrate and document the power of Grok Build's `/goal` skill.
+**Primary purpose:** Demonstrate the `/goal` skill that I created to extend Grok Build for my personal use cases.
 
-This repository was created to showcase how the `/goal` skill enables reliable, verifiable, end-to-end software delivery from a single high-quality prompt.
-
-A realistic Amazon Connect CRM embedding requirement was used **only as a Proof of Concept** to rigorously test the skill's capabilities.
+This repository showcases the `/goal` skill I built to bring more reliable, verifiable, and structured software delivery to Grok Build. A realistic Amazon Connect CRM embedding requirement was used **only as a Proof of Concept** to test the skill under real-world conditions.
 
 ---
 
@@ -18,9 +16,9 @@ The included CRM application is **not** the point. It is the test workload.
 
 ## The Core Idea
 
-We extended Grok with the `/goal` skill to move beyond conversational loops and ad-hoc agent usage.
+I created the `/goal` skill to extend Grok Build for my personal use cases. I wanted to move beyond loose conversational loops and ad-hoc agent usage when tackling ambitious projects.
 
-Instead of iteratively prompting "build a thing", we used a single, precise objective + strict acceptance criteria, and let the structured goal pursuit process do the heavy lifting.
+Instead of iteratively prompting "build a thing", I use a single, precise objective + strict acceptance criteria, and let the structured goal pursuit process drive the work.
 
 **Result:** A fully working, verified, embeddable application + excellent documentation, produced in one session.
 
@@ -80,13 +78,13 @@ See the metrics and process details in the documentation files.
 
 ## Why This Matters
 
-This repo exists to illustrate a repeatable pattern:
+I built this skill for my own workflows because I needed a more disciplined way to deliver complex projects with Grok Build. This repo exists to illustrate the repeatable pattern I use:
 
 **Clear objective + `/goal` skill discipline → High-reliability delivery**
 
 It shows the difference between:
 - Traditional LLM loops and bespoke agents
-- And structured, verifiable goal pursuit now available in Grok Build
+- And the structured, verifiable goal pursuit I created for my personal use cases.
 
 ## Running the POC
 
@@ -105,4 +103,4 @@ MIT
 
 ---
 
-**This is a skill demonstration repository first, and a CRM example second.**
+**This is primarily a demonstration of the `/goal` skill I created for my personal use cases. The CRM was only the Proof of Concept used to validate it.**

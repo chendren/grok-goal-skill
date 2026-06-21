@@ -1,8 +1,8 @@
 # The /goal Skill — The Real Subject of This Repository
 
-This repository exists first and foremost to demonstrate Grok Build's `/goal` skill.
+I created the `/goal` skill to extend Grok Build for my personal use cases.
 
-The CRM application was used **only as a Proof of Concept** to validate the skill under realistic conditions.
+This repository exists first and foremost to demonstrate that skill. The CRM application was used **only as a Proof of Concept** to validate the skill under realistic conditions.
 
 ## What is the `/goal` Skill?
 
@@ -19,9 +19,9 @@ When invoked with `/goal <objective>`, it:
 
 It refuses to declare success until the deliverable has been opened and the key user flows have been proven at runtime.
 
-## Why We Built This Repo
+## Why I Built This Skill
 
-We wanted to show what becomes possible when you give Grok a powerful, standardized goal pursuit capability instead of relying only on:
+I created the `/goal` skill because I needed a more reliable way to tackle ambitious, multi-step projects with Grok Build. I wanted to move beyond:
 
 - Loose conversational loops
 - Custom-built agent swarms
@@ -33,9 +33,11 @@ The `/goal` skill brings:
 - Mandatory runtime proof
 - Self-documenting process artifacts
 
+I built it specifically for my personal use cases.
+
 ## How the Skill Was Used Here
 
-We gave it one detailed prompt describing a realistic Amazon Connect CRM requirement.
+I gave the skill one detailed prompt describing a realistic Amazon Connect CRM requirement (used purely as a test case).
 
 The skill then autonomously:
 - Created this project's `GOAL.md`
@@ -48,7 +50,7 @@ See the resulting `GOAL.md` in this repo for the actual process log.
 
 ## The POC Test Case
 
-We deliberately chose a challenging requirement as the test workload:
+I deliberately chose a challenging requirement as the test workload for my new skill:
 
 **Build a lightweight, embeddable CRM panel for Amazon Connect that supports real screen pops and bidirectional actions.**
 
@@ -69,6 +71,8 @@ The resulting application (internally called ConnectCRM) is functional and usefu
 - Strict acceptance criteria + runtime verification dramatically improves reliability.
 - This approach is highly repeatable.
 
+I created this skill for my personal workflows and am sharing this project as an example of what it enables.
+
 ## Related Concepts
 
 | Approach                    | Characteristics                              | Strengths                     | Weaknesses                     |
@@ -88,4 +92,4 @@ This project serves as evidence that Grok Build now offers a strong, first-class
 
 ---
 
-The CRM code in this repository is a byproduct. The demonstration of the `/goal` skill is the primary artifact.
+The CRM code in this repository is a byproduct. The demonstration of the `/goal` skill that I created for my personal use cases is the primary artifact.

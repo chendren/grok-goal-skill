@@ -1,6 +1,6 @@
 # The Prompt That Demonstrated the /goal Skill
 
-This repository (`grok-goal-skill`) exists primarily to showcase Grok Build's `/goal` skill.
+This repository (`grok-goal-skill`) exists primarily to demonstrate the `/goal` skill that I created to extend Grok Build for my personal use cases.
 
 A realistic requirement to build a lightweight Salesforce-style CRM for Amazon Connect embedding was used **strictly as a Proof of Concept** to test the skill.
 
@@ -43,6 +43,6 @@ The CRM requirements were deliberately chosen because they are:
 - Need to work in an iframe context
 - Require production-demo quality with zero errors
 
-This made it an excellent test case for the `/goal` skill's ability to drive complex delivery with discipline.
+This made it an excellent test case for the `/goal` skill I created for my personal use cases.
 
 See [GOAL-SKILL.md](./GOAL-SKILL.md) for how the skill processed this prompt.
