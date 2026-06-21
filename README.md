@@ -118,6 +118,13 @@ The ideas and patterns behind this skill come from:
 - **Salesforce CTI patterns** (reference for realistic CRM integration behavior)  
   https://github.com/amazon-connect/amazon-connect-salesforce-cti
 
+## Mentors
+
+Special thanks to my mentors for their guidance, insights, and inspiration in AI, agentic systems, Amazon Connect, and generative AI patterns:
+
+- Chris Lott ([@chrislott](https://github.com/chrislott))
+- Court Schuett ([@schuettc](https://github.com/schuettc))
+
 ## License
 
 MIT
