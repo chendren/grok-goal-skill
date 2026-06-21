@@ -59,6 +59,7 @@ Requirements:
   - Browser opened (`open http://localhost:3000` and wrapper) — no errors observed
   - README + embed instructions + curl examples + wrapper.html present
 - 2026-06-21: Final runtime verification complete. All acceptance criteria satisfied.
+- 2026-06-21: Published as public GitHub repository https://github.com/chendren/connect-crm with full build story, original prompt, and goal skill explanation.
 
 ## ACHIEVED Evidence
 - Run command: `npm install && npm start`
