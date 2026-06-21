@@ -39,7 +39,7 @@ Full details: [GOAL-SKILL.md](./GOAL-SKILL.md)
 
 ## The POC Workload (CRM)
 
-To properly test the skill, we chose a non-trivial real-world scenario:
+To properly test the skill, I chose a non-trivial real-world scenario:
 
 - Build a Salesforce-style CRM panel that can be embedded in Amazon Connect
 - Must support real screen pops via ANI/phone
