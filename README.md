@@ -1,10 +1,21 @@
 # grok-goal-skill
 
-**Primary purpose:** Demonstrate the `/goal` skill that I created to extend Grok Build for my personal use cases.
+**This skill did not exist in Grok Build.** I created it after seeing the power of structured autonomous looping in Claude Code’s `/goal` and the Ralph Wiggum technique. LLM looping until a clear goal is verifiably met is far more powerful than bespoke agents or constant manual prompting. This is my personal extension for Grok Build.
 
-This repository showcases the `/goal` skill I built to bring more reliable, verifiable, and structured software delivery to Grok Build. A realistic Amazon Connect CRM embedding requirement was used **only as a Proof of Concept** to test the skill under real-world conditions.
+## Origin & Motivation
 
----
+After using Claude Code’s `/goal` and the Ralph Wiggum looping pattern, the difference became obvious:
+
+- Ad-hoc prompting and custom one-off agents create high friction and inconsistent results.
+- **Persistent, goal-driven looping** with clear verification is dramatically more reliable for complex work.
+
+Grok Build did not have an equivalent first-class mechanism, so I built one as a personal extension.
+
+This repo exists to illustrate the repeatable pattern:
+
+**Clear objective + /goal skill discipline → High-reliability delivery**
+
+It shows the difference between traditional LLM loops / bespoke agents and the structured, verifiable goal pursuit I created for my personal use cases.
 
 ## What This Repo Actually Is
 
@@ -13,14 +24,6 @@ This repository showcases the `/goal` skill I built to bring more reliable, veri
 - Evidence that complex, multi-component applications with real integration requirements (Amazon Connect screen pop + bidirectional sync + iframe embedding) can be delivered with high fidelity using the goal skill process.
 
 The included CRM application is **not** the point. It is the test workload.
-
-## The Core Idea
-
-I created the `/goal` skill to extend Grok Build for my personal use cases. I wanted to move beyond loose conversational loops and ad-hoc agent usage when tackling ambitious projects.
-
-Instead of iteratively prompting "build a thing", I use a single, precise objective + strict acceptance criteria, and let the structured goal pursuit process drive the work.
-
-**Result:** A fully working, verified, embeddable application + excellent documentation, produced in one session.
 
 ## How This Project Was Built
 
@@ -82,9 +85,7 @@ I built this skill for my own workflows because I needed a more disciplined way 
 
 **Clear objective + `/goal` skill discipline → High-reliability delivery**
 
-It shows the difference between:
-- Traditional LLM loops and bespoke agents
-- And the structured, verifiable goal pursuit I created for my personal use cases.
+It shows the difference between traditional LLM loops and bespoke agents and the structured, verifiable goal pursuit I created for my personal use cases.
 
 ## Running the POC
 
@@ -96,6 +97,26 @@ npm start
 Open http://localhost:3000 to see the CRM that was built as the test case.
 
 The technical implementation details are still present in the code and older sections of the docs for reference.
+
+## Attributions & Sources
+
+The ideas and patterns behind this skill come from:
+
+- **Geoffrey Huntley** — Ralph Wiggum technique (the original “autonomous loop until done” pattern)  
+  https://ghuntley.com/ralph/
+
+- **Anthropic** — Claude Code `/goal` command  
+  https://code.claude.com/docs/en/goal
+
+- **xAI** — Grok Build platform  
+  https://x.ai/news/grok-build-cli
+
+- **Amazon Connect** (used in the proof-of-concept)  
+  - Streams API: https://github.com/amazon-connect/amazon-connect-streams  
+  - Third-party apps: https://docs.aws.amazon.com/connect/latest/adminguide/3p-apps.html
+
+- **Salesforce CTI patterns** (reference for realistic CRM integration behavior)  
+  https://github.com/amazon-connect/amazon-connect-salesforce-cti
 
 ## License
 
