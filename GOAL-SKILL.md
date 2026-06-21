@@ -1,3 +1,5 @@
+> **This `/goal` skill did not exist in Grok Build.** I created it after seeing the value of structured autonomous looping in Claude Code’s `/goal` and the Ralph Wiggum technique. The principle is that persistent LLM looping (set a clear goal once and let the agent keep working until verified) is far more effective than bespoke agents or constant manual prompting. This is my personal extension for Grok Build.
+
 # The /goal Skill — The Real Subject of This Repository
 
 I created the `/goal` skill to extend Grok Build for my personal use cases.
