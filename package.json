@@ -1,0 +1,23 @@
+{
+  "name": "crm-mockup",
+  "version": "1.0.0",
+  "description": "Lightweight Salesforce-style CRM for Amazon Connect embedding - demo ready",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "amazon-connect",
+    "crm",
+    "salesforce-style",
+    "iframe",
+    "screenpop"
+  ],
+  "author": "CRMMockUp",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}

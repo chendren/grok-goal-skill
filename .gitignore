@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Runtime data (seeded on first run)
+data/crm.json
+
+# OS / editor
+.DS_Store
+*.log
+*.swp
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# Misc
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

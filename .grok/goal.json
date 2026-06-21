@@ -1,0 +1,32 @@
+{
+  "objective": "Build a lightweight, self-contained web UI CRM application from scratch that can be embedded as a third-party app in Amazon Connect (iframe or CCP integration) and behaves like a real Salesforce-style integrated CRM.",
+  "full_objective": "/goal Build a lightweight, self-contained web UI CRM application from scratch that can be embedded as a third-party app in Amazon Connect (iframe or CCP integration) and behaves like a real Salesforce-style integrated CRM.\n\nRequirements:\n- Modern, clean, responsive web UI (Tailwind preferred) that looks and functions like a Salesforce Service Console panel.\n- Full contact/lead 360° view with recent cases, interactions, and activity timeline.\n- Real backend: lightweight Node.js/Express (or Fastify) API server with CRUD for Contacts, Cases, and Call Logs (use simple JSON file or in-memory DB for persistence, easy to swap with real DB).\n- Real event hooks: Integrate with Amazon Connect Streams API so that on incoming call / contact creation the UI automatically does a screen pop and populates customer data (lookup by ANI/phone).\n- Bidirectional sync: Agent can log call outcome, create/update a case, or update contact notes — these must be pushed back to the CRM via real API calls.\n- Embed instructions: Provide a ready-to-use HTML snippet + configuration so it can be added as a third-party app in the Amazon Connect agent workspace.\n- Salesforce-like features: Quick actions (Create Case, Log Call, Send Email stub), search, filters, due dates, priority.\n- Demo-friendly: Seed data + a way to simulate incoming calls (either via button or real Connect integration).\n- Make it production-demo ready: clean code, no console errors, proper error handling, responsive.",
+  "acceptance_criteria": [
+    "Can be run locally with one command for frontend + backend.",
+    "When a call comes in (via Connect Streams or simulation), the CRM UI auto-populates with matching contact + history.",
+    "Agent can create/log a case or disposition and it persists via the real API.",
+    "The app works when embedded as an iframe in Amazon Connect.",
+    "All major CRM-style flows work end-to-end.",
+    "Includes clear README with setup, embed instructions, and curl examples for the APIs.",
+    "Verified by actually opening the app, simulating a full call → data population → log outcome flow with no JS errors."
+  ],
+  "status": "complete",
+  "last_verified": "2026-06-21T07:07:00Z",
+  "history": [
+    {
+      "ts": "2026-06-21T07:58:00Z",
+      "message": "Goal initialized from /goal invocation. Workspace empty. GOAL.md + .grok/goal.json created. Todos seeded with canonical execute/verify pairs.",
+      "verified": false
+    },
+    {
+      "ts": "2026-06-21T07:10:00Z",
+      "message": "All acceptance criteria met. Full runtime verification passed (screen pop, create case, log call, persistence, iframe/embed, browser open, no errors). Project complete.",
+      "verified": true
+    }
+  ],
+  "verification_commands": [
+    "npm start",
+    "curl -s http://localhost:3000/api/contacts | head -c 500",
+    "open http://localhost:3000"
+  ]
+}
