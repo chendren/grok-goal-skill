@@ -1,6 +1,8 @@
-# The Single Prompt That Built This Project
+# The Prompt That Demonstrated the /goal Skill
 
-This entire application — ConnectCRM, including the backend, UI, Amazon Connect integration, tests via verification loops, documentation, and this GitHub repository — was created from **one prompt** using Grok Build's `/goal` skill.
+This repository (`grok-goal-skill`) exists primarily to showcase Grok Build's `/goal` skill.
+
+A realistic requirement to build a lightweight Salesforce-style CRM for Amazon Connect embedding was used **strictly as a Proof of Concept** to test the skill.
 
 ## The Original Prompt (verbatim)
 
@@ -30,16 +32,17 @@ Acceptance criteria (must all be true to be done):
 Follow the goal skill process strictly: create detailed GOAL.md, use incremental execute + verify cycles, layered testing (structure + integration + runtime), and only declare complete when the runtime deliverable actually works as a real integrated CRM inside Amazon Connect.
 ```
 
-## What Happened Next
+## What This Prompt Was Really Testing
 
-- The `/goal` orchestrator immediately:
-  1. Created `GOAL.md` capturing the objective + parsed acceptance criteria.
-  2. Initialized `.grok/goal.json` for machine state.
-  3. Seeded a strict todo scaffold with canonical phases (goal-setup → goal-plan → many execute/verify pairs → goal-test-runtime → goal-complete).
-  4. Followed the pursuit loop religiously: read state, update todos, execute small batches, observe, **verify immediately** at multiple layers, record via `update_goal`.
+The CRM requirements were deliberately chosen because they are:
 
-No clarifying questions were asked (per steering rules for vibe/spec prompts). The model treated the entire block as the authoritative completion condition.
+- Non-trivial
+- Require full-stack work
+- Involve real external integration (Amazon Connect)
+- Demand bidirectional state
+- Need to work in an iframe context
+- Require production-demo quality with zero errors
 
-The result is what you see in this repository.
+This made it an excellent test case for the `/goal` skill's ability to drive complex delivery with discipline.
 
-This demonstrates a repeatable pattern for ambitious, verifiable software delivery using Grok Build.
+See [GOAL-SKILL.md](./GOAL-SKILL.md) for how the skill processed this prompt.

@@ -1,6 +1,8 @@
-# GOAL: CRMMockUp — Lightweight Salesforce-style CRM for Amazon Connect
+# GOAL: Demonstrate the /goal Skill (CRM as Proof of Concept)
 
-**Objective**: /goal Build a lightweight, self-contained web UI CRM application from scratch that can be embedded as a third-party app in Amazon Connect (iframe or CCP integration) and behaves like a real Salesforce-style integrated CRM.
+> **Note:** The primary purpose of this work was to test and showcase Grok Build's `/goal` skill. The CRM implementation was used strictly as a realistic Proof of Concept.
+
+**Objective**: Demonstrate the power and process of the `/goal` skill by building a realistic, production-demo-ready application from a single prompt. A lightweight Salesforce-style CRM for Amazon Connect was used as the Proof of Concept.
 
 Requirements:
 - Modern, clean, responsive web UI (Tailwind preferred) that looks and functions like a Salesforce Service Console panel.
@@ -59,7 +61,7 @@ Requirements:
   - Browser opened (`open http://localhost:3000` and wrapper) — no errors observed
   - README + embed instructions + curl examples + wrapper.html present
 - 2026-06-21: Final runtime verification complete. All acceptance criteria satisfied.
-- 2026-06-21: Published as public GitHub repository https://github.com/chendren/connect-crm with full build story, original prompt, and goal skill explanation.
+- 2026-06-21: Published as public GitHub repository https://github.com/chendren/grok-goal-skill. Reframed to position the /goal skill as the primary subject, with the CRM as the test POC only.
 
 ## ACHIEVED Evidence
 - Run command: `npm install && npm start`
