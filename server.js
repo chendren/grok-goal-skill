@@ -518,6 +518,101 @@ app.post('/api/screenpop', (req, res) => {
   });
 });
 
+// /demo — render the skill's process log (GOAL.md) as HTML so the artifact
+// documents its own creation. Makes the skill's work visible inside the app.
+app.get('/demo', (req, res) => {
+  let raw = '';
+  try {
+    raw = fs.readFileSync(path.join(__dirname, 'GOAL.md'), 'utf8');
+  } catch {
+    raw = '# GOAL.md not found\n\nRun this project from the repo root.';
+  }
+
+  function escHtml(s) {
+    return s.split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;');
+  }
+  function applyBold(s) {
+    const parts = s.split('**');
+    return parts.map((p, i) => i % 2 === 1 ? '<strong>' + p + '</strong>' : p).join('');
+  }
+  function applyCode(s) {
+    const parts = s.split('`');
+    return parts.map((p, i) => i % 2 === 1 ? '<code class="bg-slate-100 px-1 rounded text-sm font-mono">' + p + '</code>' : p).join('');
+  }
+  function applyLinks(s) {
+    let out = '';
+    let i = 0;
+    while (i < s.length) {
+      const start = s.indexOf('[', i);
+      if (start === -1) { out += s.slice(i); break; }
+      const textEnd = s.indexOf('](', start);
+      if (textEnd === -1) { out += s.slice(i); break; }
+      const urlEnd = s.indexOf(')', textEnd + 2);
+      if (urlEnd === -1) { out += s.slice(i); break; }
+      out += s.slice(i, start) + '<a href="' + s.slice(textEnd + 2, urlEnd) + '" class="text-blue-600 underline">' + s.slice(start + 1, textEnd) + '</a>';
+      i = urlEnd + 1;
+    }
+    return out;
+  }
+  function inline(line) {
+    return applyLinks(applyCode(applyBold(escHtml(line))));
+  }
+
+  const lines = raw.split('\n');
+  let html = '';
+  let inList = false;
+  for (const line of lines) {
+    if (line.startsWith('# '))        { if (inList) { html += '</ul>'; inList = false; } html += '<h1 class="text-2xl font-bold mt-8 mb-3 text-slate-900">' + inline(line.slice(2)) + '</h1>'; }
+    else if (line.startsWith('## '))  { if (inList) { html += '</ul>'; inList = false; } html += '<h2 class="text-lg font-semibold mt-6 mb-2 text-slate-800">' + inline(line.slice(3)) + '</h2>'; }
+    else if (line.startsWith('### ')) { if (inList) { html += '</ul>'; inList = false; } html += '<h3 class="font-semibold mt-4 mb-1 text-slate-700">' + inline(line.slice(4)) + '</h3>'; }
+    else if (line.startsWith('- '))   { if (!inList) { html += '<ul class="list-disc pl-5 my-2 space-y-1 text-slate-700">'; inList = true; } html += '<li>' + inline(line.slice(2)) + '</li>'; }
+    else if (line.trim() === '')      { if (inList) { html += '</ul>'; inList = false; } html += '<div class="my-2"></div>'; }
+    else                              { if (inList) { html += '</ul>'; inList = false; } html += '<p class="text-slate-700 my-1">' + inline(line) + '</p>'; }
+  }
+  if (inList) html += '</ul>';
+
+  res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goal Process Log</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; font-size: 15px; line-height: 1.6; background: #f8fafc; color: #334155; min-height: 100vh; }
+    .wrap { max-width: 740px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+    .header { display: flex; align-items: center; gap: .75rem; padding-bottom: 1rem; border-bottom: 1px solid #e2e8f0; margin-bottom: 2rem; font-size: .75rem; color: #94a3b8; }
+    .header a { margin-left: auto; color: #2563eb; text-decoration: none; }
+    .header a:hover { text-decoration: underline; }
+    h1 { font-size: 1.4rem; font-weight: 700; color: #0f172a; margin: 2rem 0 .6rem; }
+    h2 { font-size: 1.05rem; font-weight: 600; color: #1e293b; margin: 1.5rem 0 .4rem; }
+    h3 { font-weight: 600; color: #334155; margin: 1rem 0 .25rem; }
+    p  { color: #475569; margin: .25rem 0; }
+    ul { list-style: disc; padding-left: 1.4rem; margin: .5rem 0; color: #475569; }
+    li { margin: .2rem 0; }
+    code { background: #f1f5f9; padding: .1rem .3rem; border-radius: 4px; font-size: .85em; font-family: ui-monospace, monospace; }
+    strong { font-weight: 600; color: #1e293b; }
+    a { color: #2563eb; }
+    .footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; font-size: .75rem; color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <span style="font-weight:600;text-transform:uppercase;letter-spacing:.1em">grok-goal-skill</span>
+      <span>|</span>
+      <span>Process log written by the <code>/goal</code> skill as it worked</span>
+      <a href="/">Back to CRM</a>
+    </div>
+    <div>${html}</div>
+    <div class="footer">
+      Rendered from <code>GOAL.md</code> at runtime.
+      Run <code>node verify.js</code> for independent end-to-end verification (no LLM involved).
+    </div>
+  </div>
+</body>
+</html>`);
+});
+
 // Fallback: serve index for any non-api route (nice for SPA feel if needed)
 app.get('*', (req, res) => {
   if (req.path.startsWith('/api')) return res.status(404).json({ error: 'Not found' });

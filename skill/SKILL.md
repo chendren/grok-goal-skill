@@ -34,28 +34,31 @@ If the objective is vague, write a clarified measurable version to GOAL.md and p
 - `.grok/goal.json` (cwd or `~/.grok/goals/<id>.json`) — machine state:
   ```json
   { "objective": "...", "condition": "...", "status": "active|paused|complete",
+    "turns_used": 0, "max_turns": 25,
     "history": [{"ts": "...", "message": "...", "verified": false}],
     "last_verified": "...", "verification_commands": ["npm test"] }
   ```
 - Derive workspace id: `git config --get remote.origin.url || pwd | shasum | cut -c1-12`
-- Call `update_goal` after every major milestone. On completion: `completed: true`.
+- **Write a checkpoint at the START of every turn** (increment `turns_used`, record current phase). Do not wait for a milestone — compaction can hit between turns.
+- If `turns_used >= max_turns`: surface status to user, do not continue loop autonomously.
+- Call `update_goal` after every verified milestone. On completion: `completed: true`.
 - Re-read state at turn start after any compaction.
 
 ## Model Tiers — Use the Cheapest That Fits
 
-Grok Build has two built-in models. Never default everything to `grok-build`.
+Grok Build has two built-in session models. Subagents inherit the active session model (`model: inherit`). Control cost by switching the session model before spawning lightweight subgoals.
 
-| Task | Model | Rationale |
-|------|-------|-----------|
-| State read/write, GOAL.md writes, grep checks | Direct tool calls — no subagent | No reasoning needed |
-| File structure verification, simple existence checks | `grok-composer-2.5-fast` via `spawn_subagent(type="explore")` | Light reasoning, fast |
-| GOAL.md summarization, todo scaffolding | `grok-composer-2.5-fast` | Text generation, no web tools |
-| Web research, multi-step exploration | `grok-build` | Requires web search tools |
-| Feature implementation, code changes | `grok-build` | Requires deep reasoning + editing |
-| Complex architecture planning | `grok-build` via `enter_plan_mode` or `spawn_subagent(type="plan")` | Requires full reasoning |
-| Parallel independent verifications | `grok-composer-2.5-fast` × N, `background: true`, collect with `block: true` | Fast, cheap, parallelizable |
+| Task | Session model | How |
+|------|---------------|-----|
+| State read/write, GOAL.md writes, grep checks | None — direct tool calls | No subagent needed |
+| File structure verification, simple existence checks | `grok-composer-2.5-fast` | Switch session, then spawn `explore` |
+| GOAL.md summarization, todo scaffolding | `grok-composer-2.5-fast` | Switch session, then spawn |
+| Web research, multi-step exploration | `grok-build` (default) | No switch needed |
+| Feature implementation, code changes | `grok-build` | No switch needed |
+| Complex architecture planning | `grok-build` via `enter_plan_mode` | No switch needed |
+| Parallel independent verifications | `grok-composer-2.5-fast` × N, `background: true`, collect with `block: true` | Switch before spawning batch |
 
-When spawning a subagent that does not need web search or deep multi-file reasoning, prefer `grok-composer-2.5-fast` to reduce cost and latency.
+Switch with `/model grok-composer-2.5-fast` before spawning a lightweight subagent; restore with `/model grok-build` before implementation or research.
 
 ## Pursuit Loop (Do Not Stop Until Verified)
 
@@ -101,7 +104,8 @@ Mark one `in_progress` at a time.
 - Run the commands the user would run; capture full output.
 - Use app-exposed test hooks (`window.__APP_VERIFY__`) instead of reimplementing logic.
 - For file goals: read file, assert exact match.
-- For runtime: `open` the deliverable, confirm animation runs immediately, no console errors.
+- For runtime: `open` the deliverable, capture a `browser_screenshot`, confirm animation runs immediately with no console errors. Save the screenshot path to GOAL.md as evidence.
+- **Independent verifier**: spawn the verification subagent separately from the implementation subagent. The verifier reads GOAL.md acceptance criteria and writes its own assertions against the running app. It must not have access to the implementation subagent's output — its job is to find discrepancies, not confirm what it already knows was done.
 - Spawn evaluator subagent for complex pass/fail conditions.
 - Mock all time/date inputs — no real-clock dependency in tests.
 - Integration: chain create → filter → move → stats → persist. Persistence: save → reload → assert.
