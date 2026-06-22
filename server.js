@@ -49,10 +49,30 @@ function loadDB() {
   }
 }
 
+// Debounced async write: batches rapid mutations into a single disk write
+// without blocking the event loop. Flushes on process exit.
+let _saveTimer = null;
 function saveDB() {
-  db.meta.lastUpdated = new Date().toISOString();
-  fs.writeFileSync(DATA_FILE, JSON.stringify(db, null, 2), 'utf8');
+  if (_saveTimer) clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(() => {
+    db.meta.lastUpdated = new Date().toISOString();
+    fs.writeFile(DATA_FILE, JSON.stringify(db, null, 2), 'utf8', (err) => {
+      if (err) console.error('Failed to persist DB:', err.message);
+    });
+    _saveTimer = null;
+  }, 150);
 }
+
+function flushDB() {
+  if (_saveTimer) {
+    clearTimeout(_saveTimer);
+    _saveTimer = null;
+    db.meta.lastUpdated = new Date().toISOString();
+    fs.writeFileSync(DATA_FILE, JSON.stringify(db, null, 2), 'utf8');
+  }
+}
+process.on('SIGTERM', () => { flushDB(); process.exit(0); });
+process.on('SIGINT',  () => { flushDB(); process.exit(0); });
 
 function seedDB() {
   const now = new Date();

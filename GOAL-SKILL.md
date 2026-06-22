@@ -1,5 +1,28 @@
 > **This `/goal` skill did not exist in Grok Build.** I created it after seeing the value of structured autonomous looping in Claude Code’s `/goal` and the Ralph Wiggum technique. The principle is that persistent LLM looping (set a clear goal once and let the agent keep working until verified) is far more effective than bespoke agents or constant manual prompting. This is my personal extension for Grok Build.
 
+## Installing the Skill
+
+The actual installable skill definition lives in [`skill/SKILL.md`](./skill/SKILL.md).
+
+To install, copy the `skill/` directory to `~/.grok/skills/goal/`:
+
+```bash
+cp -r skill/ ~/.grok/skills/goal/
+```
+
+Then invoke with `/goal <objective>` in any Grok Build session.
+
+## Latest Improvements (LLM-as-Judge Review)
+
+A structured review identified these inefficiencies and addressed them:
+
+| Issue | Fix |
+|-------|-----|
+| SKILL.md was 248 lines with ~35% redundant content | Trimmed to 126 lines — pitfalls consolidated into pursuit loop, duplicate verification rules removed |
+| All subagents defaulted to `grok-build` regardless of task complexity | Added model tier table: use direct tool calls / `qwen32b` for file ops and simple checks; reserve `grok-build` for research and implementation |
+| `goal-state.py` re-ran git subprocess calls on every invocation | Workspace ID now cached to `~/.grok/goals/.ws-<hash>.id` — subsequent calls skip git entirely |
+| server.js used synchronous `writeFileSync` on every API mutation | Replaced with 150ms debounced async write + graceful flush on SIGTERM/SIGINT |
+
 # The /goal Skill — The Real Subject of This Repository
 
 I created the `/goal` skill to extend Grok Build for my personal use cases.
