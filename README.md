@@ -125,6 +125,10 @@ Special thanks to my mentors for their guidance, insights, and inspiration in AI
 - Chris Lott ([@chrislott](https://github.com/chrislott))
 - Court Schuett ([@schuettc](https://github.com/schuettc))
 
+## Acknowledgments
+
+Thanks to **Wayne Bevan** for critical feedback that directly shaped the hardening of this project — the independent verifier, the skeptics doc, and the structural fixes to the skill all came out of taking that feedback seriously.
+
 ## License
 
 MIT
