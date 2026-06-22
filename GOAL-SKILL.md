@@ -19,7 +19,7 @@ A structured review identified these inefficiencies and addressed them:
 | Issue | Fix |
 |-------|-----|
 | SKILL.md was 248 lines with ~35% redundant content | Trimmed to 126 lines — pitfalls consolidated into pursuit loop, duplicate verification rules removed |
-| All subagents defaulted to `grok-build` regardless of task complexity | Added model tier table: use direct tool calls / `qwen32b` for file ops and simple checks; reserve `grok-build` for research and implementation |
+| All subagents defaulted to `grok-build` regardless of task complexity | Added model tier table: `grok-composer-2.5-fast` for verification/summarization/light exploration; `grok-build` only for research and implementation |
 | `goal-state.py` re-ran git subprocess calls on every invocation | Workspace ID now cached to `~/.grok/goals/.ws-<hash>.id` — subsequent calls skip git entirely |
 | server.js used synchronous `writeFileSync` on every API mutation | Replaced with 150ms debounced async write + graceful flush on SIGTERM/SIGINT |
 

@@ -43,18 +43,19 @@ If the objective is vague, write a clarified measurable version to GOAL.md and p
 
 ## Model Tiers — Use the Cheapest That Fits
 
-Spawn the smallest capable model for each task. Never default everything to `grok-build`.
+Grok Build has two built-in models. Never default everything to `grok-build`.
 
-| Task | Use |
-|------|-----|
-| State read/write, GOAL.md writes, grep checks | Direct tool calls — no subagent |
-| File structure verification, simple existence checks | `spawn_subagent(type="explore")` with `quick-search` effort |
-| Web research, multi-step exploration | `spawn_subagent(type="explore")` — `grok-build` (needs web tools) |
-| Feature implementation, code changes | `spawn_subagent(type="general-purpose")` — `grok-build` |
-| Complex architecture planning | Enter plan mode (`enter_plan_mode`) or `spawn_subagent(type="plan")` |
-| Parallel independent verifications | `spawn_subagent(..., background: true)` × N, collect with `block: true` |
+| Task | Model | Rationale |
+|------|-------|-----------|
+| State read/write, GOAL.md writes, grep checks | Direct tool calls — no subagent | No reasoning needed |
+| File structure verification, simple existence checks | `grok-composer-2.5-fast` via `spawn_subagent(type="explore")` | Light reasoning, fast |
+| GOAL.md summarization, todo scaffolding | `grok-composer-2.5-fast` | Text generation, no web tools |
+| Web research, multi-step exploration | `grok-build` | Requires web search tools |
+| Feature implementation, code changes | `grok-build` | Requires deep reasoning + editing |
+| Complex architecture planning | `grok-build` via `enter_plan_mode` or `spawn_subagent(type="plan")` | Requires full reasoning |
+| Parallel independent verifications | `grok-composer-2.5-fast` × N, `background: true`, collect with `block: true` | Fast, cheap, parallelizable |
 
-If `qwen32b` (local MLX) is available in the session model list, use it for: GOAL.md summaries, simple JSON validation, structural grep-verify passes. It is free and fast for non-reasoning tasks.
+When spawning a subagent that does not need web search or deep multi-file reasoning, prefer `grok-composer-2.5-fast` to reduce cost and latency.
 
 ## Pursuit Loop (Do Not Stop Until Verified)
 
